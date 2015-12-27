@@ -1,0 +1,29 @@
+<h1>Editing Child #<%= @child.id %></h1>
+
+<form action="/children/<%= @child.id %>/update">
+  <div>
+    <label for="donater_id">donater_id</label><br />
+    <input id="donater_id" name="donater_id" value="<%= @child.donater_id  %>" type="text" />
+  </div>
+  <div>
+    <label for="name">name</label><br />
+    <input id="name" name="name" value="<%= @child.name  %>" type="text" />
+  </div>
+  <div>
+    <label for="age">age</label><br />
+    <input id="age" name="age" value="<%= @child.age  %>" type="text" />
+  </div>
+  <div>
+    <label for="school_id">school_id</label><br />
+    <input id="school_id" name="school_id" value="<%= @child.school_id  %>" type="text" />
+  </div>
+  <div>
+    <label for="status">status</label><br />
+    <input id="status" name="status" value="<%= @child.status  %>" type="text" />
+  </div>
+  <div>
+    <input type="submit">
+  </div>
+</form>
+
+

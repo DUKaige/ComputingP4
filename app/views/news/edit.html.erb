@@ -1,0 +1,25 @@
+<h1>Editing News #<%= @news.id %></h1>
+
+<form action="/news/<%= @news.id %>/update">
+  <div>
+    <label for="title">title</label><br />
+    <input id="title" name="title" value="<%= @news.title  %>" type="text" />
+  </div>
+  <div>
+    <label for="content">content</label><br />
+    <input id="content" name="content" value="<%= @news.content  %>" type="text" />
+  </div>
+  <div>
+    <label for="child_id">child_id</label><br />
+    <input id="child_id" name="child_id" value="<%= @news.child_id  %>" type="text" />
+  </div>
+  <div>
+    <label for="school_id">school_id</label><br />
+    <input id="school_id" name="school_id" value="<%= @news.school_id  %>" type="text" />
+  </div>
+  <div>
+    <input type="submit">
+  </div>
+</form>
+
+

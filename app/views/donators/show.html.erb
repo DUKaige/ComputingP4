@@ -1,0 +1,29 @@
+<h1>Donator #<%= @donator.id %></h1>
+
+<div>
+  <strong>Name</strong>:<br />
+  <p><%= @donator.name %></p>
+</div>
+<div>
+  <strong>User name</strong>:<br />
+  <p><%= @donator.user_name %></p>
+</div>
+<div>
+  <strong>Password</strong>:<br />
+  <p><%= @donator.password %></p>
+</div>
+<div>
+  <strong>Email</strong>:<br />
+  <p><%= @donator.email %></p>
+</div>
+<div>
+  <strong>Password</strong>:<br />
+  <p><%= @donator.password %></p>
+</div>
+<div>
+  <strong>Phone number</strong>:<br />
+  <p><%= @donator.phone_number %></p>
+</div>
+
+<a href="/donators/<%= @donator.id %>/edit">Edit</a> |
+<a href="/donators/<%= @donator.id %>/destroy">Destroy</a>

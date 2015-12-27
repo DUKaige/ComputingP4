@@ -1,0 +1,42 @@
+<h1>New School</h1>
+
+<form action="/create_school">
+  <div>
+    <label for="username">user_name</label><br />
+    <input id="username" name="username" type="text" />
+  </div>
+  <div>
+    <label for="name">name</label><br />
+    <input id="name" name="name" type="text" />
+  </div>
+  <div>
+    <label for="password">password</label><br />
+    <input id="password" name="password" type="password" />
+  </div>
+  <div>
+    <label for="repassword">repassword</label><br />
+    <input id="repassword" name="repassword" type="password" />
+  </div>
+  <div>
+    <label for="email">email</label><br />
+    <input id="email" name="email" type="text" />
+  </div>
+  <div>
+    <label for="phone_number">phone_number</label><br />
+    <input id="phone_number" name="phone_number" type="text" />
+  </div>
+  <div>
+    <label for="address">address</label><br />
+    <input id="address" name="address" type="text" />
+  </div>
+  <div>
+    <label for="card_number">card_number</label><br />
+    <input id="card_number" name="card_number" type="text" />
+  </div>
+  <div>
+    <input type="submit">
+  </div>
+</form>
+
+<%=session["errormessage"]%>
+<%session["errormessage"] = nil%>

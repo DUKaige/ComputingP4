@@ -1,0 +1,21 @@
+<h1>News #<%= @news.id %></h1>
+
+<div>
+  <strong>Title</strong>:<br />
+  <p><%= @news.title %></p>
+</div>
+<div>
+  <strong>Content</strong>:<br />
+  <p><%= @news.content %></p>
+</div>
+<div>
+  <strong>Child</strong>:<br />
+  <p><%= @news.child_id %></p>
+</div>
+<div>
+  <strong>School</strong>:<br />
+  <p><%= @news.school_id %></p>
+</div>
+
+<a href="/news/<%= @news.id %>/edit">Edit</a> |
+<a href="/news/<%= @news.id %>/destroy">Destroy</a>

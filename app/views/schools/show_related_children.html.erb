@@ -1,0 +1,37 @@
+<h1>Children</h1>
+
+<p><a href="/new_child">Add a New Child</a></p>
+
+<table>
+  <thead>
+  <tr>
+    <th>Donater</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>School</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @children.each do |child| %>
+      <tr>
+        <td><%= 0000 %></td>
+        <td><%= child.name %></td>
+        <td><%= child.age %></td>
+        <td><%= 0000 %></td>
+        <td><%= child.status %></td>
+
+        <td><a href="/children/<%= child.id %>">Show</a>
+        </td>
+        <%if session["type"] == "school" or session["type"] == "manager" %>
+            <td><a href="/children/<%= child.id %>/edit">Edit</a></td>
+            <td><a href="/children/<%= child.id %>/destroy">Destroy</a></td>
+        <%end%>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+

@@ -1,0 +1,35 @@
+<h1>Schools</h1>
+
+<p><a href="/new_school">Add a New School</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone number</th>
+      <th>Address</th>
+      <th>Card number</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @schools.each do |school| %>
+    <tr>
+          <td><%= school.name %></td>
+          <td><%= school.email %></td>
+          <td><%= school.phone_number %></td>
+          <td><%= school.address %></td>
+          <td><%= school.card_number %></td>
+          <td><a href="/schools/<%= school.id %>">Show</a>
+        </td>
+      <td><a href="/schools/<%= school.id %>/edit">Edit</a></td>
+      <td><a href="/schools/<%= school.id %>/destroy">Destroy</a></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
