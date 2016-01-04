@@ -1,7 +1,4 @@
 <h1>Schools</h1>
-
-<p><a href="/new_school">Add a New School</a></p>
-
 <table>
   <thead>
     <tr>
@@ -26,8 +23,10 @@
           <td><%= school.card_number %></td>
           <td><a href="/schools/<%= school.id %>">Show</a>
         </td>
-      <td><a href="/schools/<%= school.id %>/edit">Edit</a></td>
-      <td><a href="/schools/<%= school.id %>/destroy">Destroy</a></td>
+      <%if session["type"] == "manager"%>
+          <td><a href="/schools_edit">Edit</a></td>
+          <td><a href="/schools/<%= school.id %>/destroy">Destroy</a></td>
+      <%end%>
     </tr>
   <% end %>
   </tbody>

@@ -9,21 +9,15 @@
   <p><%= @donator.user_name %></p>
 </div>
 <div>
-  <strong>Password</strong>:<br />
-  <p><%= @donator.password %></p>
-</div>
-<div>
   <strong>Email</strong>:<br />
   <p><%= @donator.email %></p>
-</div>
-<div>
-  <strong>Password</strong>:<br />
-  <p><%= @donator.password %></p>
 </div>
 <div>
   <strong>Phone number</strong>:<br />
   <p><%= @donator.phone_number %></p>
 </div>
 
-<a href="/donators/<%= @donator.id %>/edit">Edit</a> |
-<a href="/donators/<%= @donator.id %>/destroy">Destroy</a>
+<%if @donator.id == session["id"] and session["type"] == "donator"%>
+    <a href="/donators_edit">edit account</a>
+    <a href="/donator_change_password">change password</a>
+<%end%>

@@ -1,10 +1,78 @@
 <!DOCTYPE html>
 <html>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <img class="navbar-brand"  style = "border-radius: 20px;" src="Icon.png">
+      <a class="navbar-brand" href="/">Sanyuegongyi</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <%if session["type"] == "donator"%>
+            <li><a href="/donator_children">My donated children</a></li>
+        <%elsif session["type"] == "school"%>
+            <li><a href="/school_news">News</a></li>
+            <li><a href="/school_children">Our children</a></li>
+        <%end%>
+        <li><a href="/schools">All schools</a></li>
+        <li><a href="/children">All children</a></li>
+        <li><a href="/donators">All donators</a></li>
+
+
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right">
+        <%if session["type"] == "donator"%>
+            <li><a href="/donator_account">Welcome, <%= Donator.find_by_id(session["id"]).name%>! Your account</a></li>
+            <li><a href="/sign_out">Sign out </a></li>
+        <%elsif session["type"] == "school"%>
+            <li><a href="/school_account">Welcome, <%= School.find_by_id(session["id"]).name%>! Your account</a></li>
+            <li><a href="/sign_out">Sign out </a></li>
+        <%elsif session["type"] == "manager"%>
+            <li><a href="/">Welcome, manager! Your account</a></li>
+            <li><a href="/sign_out">Sign out </a></li>
+        <%else%>
+            <li><a href="/login">Log in</a></li>
+            <li><a href="/signup">Sign up</a></li>
+        <%end%>
+        <li><a href="/contact">Contact us</a></li>
+
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 <head>
-  <title>ComputingP4</title>
+  <title>Sanyuegongyi</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <meta charset="utf-8">
+
+  <style>
+      .form-group{
+          margin-top: 30px;
+          margin-bottom: 30px
+
+      }
+      input{
+          border-radius: 4px;
+      }
+  </style>
+
 </head>
 <body>
 

@@ -14,7 +14,6 @@ class SchoolsController < ApplicationController
   def create
     if params[:password] == params[:repassword]
       if Donator.find_by_user_name(params[:username]) or School.find_by_user_name(params[:username])
-        a = "a" + 1
         session["errormessage"] = "the username already exists"
         redirect_to "/new_school"
       else
@@ -43,53 +42,114 @@ class SchoolsController < ApplicationController
   end
 
   def edit
-    @school = School.find_by(id: params[:id])
-  end
-
-  def update
-    @school = School.find_by(id: params[:id])
-    @school.name = params[:name]
-    @school.email = params[:email]
-    @school.phone_number = params[:phone_number]
-    @school.address = params[:address]
-    @school.card_number = params[:card_number]
-
-    if @school.save
-      redirect_to "/schools/#{ @school.id }"
+    if session["id"] and session["type"] == "school"
+      @school = School.find_by(id: session["id"])
     else
-      render 'edit'
+      redirect_to "/error_page"
     end
   end
 
-  def destroy
-    @school = School.find_by(id: params[:id])
-    @school.destroy
+  def update
+    if session["id"] and session["type"] == "school"
+      @school = School.find_by(id: session["id"])
+      @school.name = params[:name]
+      @school.email = params[:email]
+      @school.phone_number = params[:phone_number]
+      @school.address = params[:address]
+      @school.card_number = params[:card_number]
 
+      if @school.save
+        redirect_to "/schools/#{ @school.id }"
+      else
+        render 'edit'
+      end
+    else
+      redirect_to "/error_page"
+    end
 
-    redirect_to "/schools"
   end
+
+
+  def destroy
+    if session["type"] == "manager"
+      @school = School.find_by(id: params[:id])
+      @school.destroy
+      redirect_to "/schools"
+    else
+      redirect_to "/error_page"
+    end
+  end
+
+
 
   def show_related_children
     if session["id"] and session["type"] == "school"
-      enrollments = Enrollment.find_by(school_id:session["id"])
-
+      enrollments = Enrollment.where(school_id:session["id"]).to_a
       if enrollments
         @children = []
-        if enrollments.class == [].class
-          enrollments.each do |eee|
-            @children.append(Child.find_by_id(eee.school_id))
+        enrollments.each do |eee|
+          this = Child.find_by_id(eee.school_id)
+          if this
+            @children.append(this)
           end
-        else
-          if not Child.find_by_id(enrollments.child_id)
-            a = "a" + 1
-          end
-          @children.append(Child.find_by_id(enrollments.child_id))
         end
+
+      else
+        @children = []
 
       end
 
-      if @children == nil
+      if not @children
         @children = []
+      end
+    else
+      redirect_to "/error_page"
+    end
+
+  end
+  def show_related_news
+    if session["id"] and session["type"] == "school"
+      @news = News.where(:school_id => session["id"]).to_a
+
+      if @news.class != [].class
+        @news = [@news]
+      end
+    else
+      redirect_to "/error_page"
+    end
+  end
+
+  def account
+    if session["id"]
+      redirect_to "/schools/"+session["id"].to_s
+    else
+      redirect_to "/error_page"
+    end
+  end
+
+  def change_password
+    if session["id"] and session["type"] == "school"
+      @school = School.find_by(id: session["id"])
+    else
+      redirect_to "/error_page"
+
+    end
+  end
+
+  def update_password
+    if session["id"] and session["type"] == "school"
+      @school = School.find_by(id: session["id"])
+      if params["old"] == @school.password
+        if params["new"] == params["renew"]
+          @school.password = params["new"]
+          @school.save
+          redirect_to "/school_account"
+        else
+          render "change_password"
+        end
+
+      else
+        render "change_password"
       end
     else
       redirect_to "/error_page"

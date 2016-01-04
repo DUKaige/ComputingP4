@@ -14,13 +14,73 @@
 </div>
 <%if session["type"] == "donator"%>
 <div>
-  <a href= <%="/change_status/"+@child.id.to_s %>>
-    Donate
-  </a>
+  <%if @child.status == "not donated"%>
+      <a href= <%="/change_status/"+@child.id.to_s %>>
+        Donate
+      </a>
+  <%end%>
+
+
 </div>
 <%end%>
 
-<%if session["type"] == "school"%>
-<a href="/children/<%= @child.id %>/edit">Edit</a> |
+<%if session["type"] == "school" and session["id"] == @enrollment.school_id%>
+<a href="/children/<%= @child.id %>/edit">Edit</a>
 <a href="/children/<%= @child.id %>/destroy">Destroy</a>
+    <a href="/new_news/<%= @child.id %>">Add news</a>
+    <%if @child.status == "transfer"%>
+        <a href="/donateachild/<%= @child.id %>">Accept donation</a>
+
+    <%end%>
+<%end%>
+
+
+<%ifVisible = FALSE%>
+<%if session["type"] == "manager" %>
+    <% ifVisible = TRUE %>
+<% elsif session["type"] == "school"%>
+    <% enrollment = Enrollment.find_by_child_id(@child.id)%>
+    <% if enrollment.school_id == session["id"]%>
+        <% ifVisible = TRUE%>
+    <%end%>
+<%elsif session["type"] == "donator"%>
+    <% donation = Donation.where(id:@child.id).to_a%>
+    <% donation.each do |bla|%>
+        <%if bla.donator_id == session["id"]%>
+            <%ifVisible = TRUE%>
+            <%break%>
+        <%end %>
+    <%end %>
+<%end%>
+<%if ifVisible%>
+<div>
+  <strong>News</strong>:<br />
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @news.each do |news| %>
+        <tr>
+          <td><%= news.title %></td>
+          <td><%= news.content %></td>
+          <td><a href="/news/<%= news.id %>">Show</a>
+          </td>
+          <%if session["type"] == "school" and session["id"] == @enrollment.school_id%>
+              <td><a href="/news/<%= news.id %>/edit">Edit</a></td>
+              <td><a href="/news/<%= news.id %>/destroy">Destroy</a></td>
+          <%end%>
+
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
 <%end%>

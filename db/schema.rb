@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20151226041630) do
     t.string   "title"
     t.string   "content"
     t.integer  "child_id"
+    t.integer  "school_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

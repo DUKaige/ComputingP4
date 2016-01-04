@@ -18,10 +18,14 @@
   <tbody>
   <% @children.each do |child| %>
       <tr>
-        <td><%= 0000 %></td>
+        <%if Donation.find_by_child_id(child.id)%>
+            <td><%= Donator.find_by_id(Donation.find_by_child_id(child.id).donator_id).name %></td>
+        <%else%>
+            <td>not donated</td>
+        <%end%>
         <td><%= child.name %></td>
         <td><%= child.age %></td>
-        <td><%= 0000 %></td>
+        <td><%= School.find_by_id(Enrollment.find_by_child_id(child.id).school_id).name %></td>
         <td><%= child.status %></td>
 
         <td><a href="/children/<%= child.id %>">Show</a>

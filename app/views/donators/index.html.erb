@@ -1,15 +1,11 @@
 <h1>Donators</h1>
 
-<p><a href="/new_donator">Add a New Donator</a></p>
-
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>User name</th>
-      <th>Password</th>
       <th>Email</th>
-      <th>Password</th>
       <th>Phone number</th>
       <th></th>
       <th></th>
@@ -22,14 +18,15 @@
     <tr>
           <td><%= donator.name %></td>
           <td><%= donator.user_name %></td>
-          <td><%= donator.password %></td>
           <td><%= donator.email %></td>
-          <td><%= donator.password %></td>
           <td><%= donator.phone_number %></td>
           <td><a href="/donators/<%= donator.id %>">Show</a>
         </td>
-      <td><a href="/donators/<%= donator.id %>/edit">Edit</a></td>
-      <td><a href="/donators/<%= donator.id %>/destroy">Destroy</a></td>
+      <%if session["type"] == "manager"%>
+          <td><a href="/donators_edit">Edit</a></td>
+          <td><a href="/donators/<%= donator.id %>/destroy">Destroy</a></td>
+      <%end%>
+
     </tr>
   <% end %>
   </tbody>

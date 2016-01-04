@@ -5,7 +5,6 @@ class CreateDonators < ActiveRecord::Migration
       t.string :user_name
       t.string :password
       t.string :email
-      t.string :password
       t.string :phone_number
 
       t.timestamps

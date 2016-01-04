@@ -4,18 +4,25 @@
   <strong>Title</strong>:<br />
   <p><%= @news.title %></p>
 </div>
+
 <div>
   <strong>Content</strong>:<br />
   <p><%= @news.content %></p>
 </div>
-<div>
-  <strong>Child</strong>:<br />
-  <p><%= @news.child_id %></p>
-</div>
+
+<%if Child.find_by(@news.child_id)%>
+    <div>
+    <strong>Child</strong>:<br />
+    <p><%= Child.find_by(@news.child_id).name %></p>
+    </div>
+<%end%>
+
 <div>
   <strong>School</strong>:<br />
-  <p><%= @news.school_id %></p>
+  <p><%= School.find_by(@news.school_id).name %></p>
 </div>
 
-<a href="/news/<%= @news.id %>/edit">Edit</a> |
-<a href="/news/<%= @news.id %>/destroy">Destroy</a>
+<%if session["id"] == @news.school_id and session["type"] == "school"%>
+    <a href="/news/<%= @news.id %>/edit">Edit</a> |
+    <a href="/news/<%= @news.id %>/destroy">Destroy</a>
+<%end%>

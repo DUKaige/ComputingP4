@@ -6,6 +6,8 @@ class ChildrenController < ApplicationController
 
   def show
     @child = Child.find_by(id: params[:id])
+    @enrollment = Enrollment.find_by_child_id(@child.id)
+    @news = News.where(child_id: params[:id]).to_a
   end
 
   def new
@@ -16,7 +18,7 @@ class ChildrenController < ApplicationController
       @child = Child.new
       @child.name = params[:name]
       @child.age = params[:age]
-      @child.status = "not_donated"
+      @child.status = "not donated"
       newEnrollment = Enrollment.new
       newEnrollment.school_id = session["id"]
       if @child.save
@@ -35,30 +37,41 @@ class ChildrenController < ApplicationController
 
   def edit
     @child = Child.find_by(id: params[:id])
+    @enrollment = Enrollment.find_by_child_id(params[:id])
+    if session["type"] == "school" and session["id"] == @enrollment.school_id
+      render "edit"
+    else
+      redirect_to "/error_page"
+    end
   end
 
   def update
     @child = Child.find_by(id: params[:id])
-    @child.name = params[:name]
-    @child.age = params[:age]
-    @child.status = params[:status]
+    @enrollment = Enrollment.find_by_child_id(params[:id])
+    if session["type"] == "school" and session["id"] == @enrollment.school_id
+      @child.name = params[:name]
+      @child.age = params[:age]
 
-    if @child.save
-      redirect_to "/children/#{ @child.id }"
+      if @child.save
+        redirect_to "/children/#{ @child.id }"
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      redirect_to "/error_page"
     end
+
   end
 
   def destroy
     @child = Child.find_by(id: params[:id])
-    @enrollments = Enrollment.find_by_child_id(@child.id)
-    if @enrollments
-      for i in @enrollments
-        i.destroy
-      end
+    @enrollment = Enrollment.find_by_child_id(@child.id)
+    if session["type"] == "school" and session["id"] == @enrollment.school_id
+      @child.destroy
+      @enrollment.destroy
+    else
+      redirect_to "/error_page"
     end
-    @child.destroy
 
     redirect_to "/children"
   end
@@ -67,21 +80,37 @@ class ChildrenController < ApplicationController
   def change_status
     childID = eval(params["id"])
     a = Child.find_by(id:childID)
-    a.status = "transfer"
-    dd = Donation.new
-    dd.child_id = childID
-    dd.donator_id = session["id"]
-    dd.status = "transfer"
-    dd.save
-    a.save
-    redirect_to "/donator_children"
+    @enrollment = Enrollment.find_by_child_id(childID)
+    if session["type"] == "donator"
+      a.status = "transfer"
+      dd = Donation.new
+      dd.child_id = childID
+      dd.donator_id = session["id"]
+      dd.status = "transfer"
+      dd.save
+      a.save
+      redirect_to "/donator_children"    else
+      redirect_to "/error_page"
+    end
+
   end
 
   def donate
     childID = eval(params["id"])
-    dd = Donation.find_by_child_id(childID)
-    dd.status = "complete"
-    dd.save
-    redirect_to "/"
+    @enrollment = Enrollment.find_by_child_id(childID)
+    if session["type"] == "school" and session["id"] == @enrollment.school_id
+      thisD = Donation.find_by_child_id(childID)
+      thisD.status = "complete"
+      thisD.save
+      thisC = Child.find_by_id(childID)
+      thisC.status = "complete"
+      thisC.save
+      redirect_to "/"
+    else
+      redirect_to "/error_page"
+    end
+
+
   end
+
 end

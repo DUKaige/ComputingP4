@@ -20,8 +20,10 @@
     <tr>
           <td><%= news.title %></td>
           <td><%= news.content %></td>
-          <td><%= news.child_id %></td>
-          <td><%= news.school_id %></td>
+            <%if Child.find_by(news.child_id)%>
+                 <td><%= Child.find_by(news.child_id).name %></td>
+             <%end%>
+          <td><%= School.find_by(news.school_id).name  %></td>
           <td><a href="/news/<%= news.id %>">Show</a>
         </td>
       <td><a href="/news/<%= news.id %>/edit">Edit</a></td>

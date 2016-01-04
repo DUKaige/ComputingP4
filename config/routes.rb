@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   get "/mytest" => "application#mytest"
 
 
-
-
   # Routes for the News resource:
   # CREATE
   get '/new_news' => 'news#new'
+  get "/create_news/:id" => "news#create"
+  get '/new_news/:id' => 'news#new'
   get '/create_news' => 'news#create'
 
   # READ
@@ -32,17 +32,18 @@ Rails.application.routes.draw do
   get '/schools/:id' => 'schools#show'
 
   # UPDATE
-  get '/schools/:id/edit' => 'schools#edit'
-  get '/schools/:id/update' => 'schools#update'
+  get '/schools_edit' => 'schools#edit'
+  get '/schools_update' => 'schools#update'
 
   # DELETE
   get '/schools/:id/destroy' => 'schools#destroy'
   #------------------------------
 
   get "/school_children" => "schools#show_related_children"
-
-
-
+  get "/school_news" => "schools#show_related_news"
+  get "/school_account" => "schools#account"
+  get "/school_change_password" => "schools#change_password"
+  get "/school_update_password" => "schools#update_password"
 
 
   # Routes for the Donator resource:
@@ -55,19 +56,19 @@ Rails.application.routes.draw do
   get '/donators/:id' => 'donators#show'
 
   # UPDATE
-  get '/donators/:id/edit' => 'donators#edit'
-  get '/donators/:id/update' => 'donators#update'
+  get '/donators_edit' => 'donators#edit'
+  get '/donators_update' => 'donators#update'
 
   # DELETE
   get '/donators/:id/destroy' => 'donators#destroy'
   #------------------------------
 
-  get "/donator_news" => 'donators#show_related_news'
   get "/donator_children" => 'donators#show_related_children'
   get "donator_schools" => "donators#show_related_schools"
   get "/donator_account" => "donators#account"
 
-
+  get "/donator_change_password" => "donators#change_password"
+  get "/donator_update_password" => "donators#update_password"
 
 
 
@@ -92,74 +93,12 @@ Rails.application.routes.draw do
   get '/change_status/:id' => 'children#change_status'
 
 
-
-
-
-
   get '/' => 'application#main'
   get '/login'=>'application#login'
   get '/signup'=>'application#signup'
   get '/sign_in' => 'application#sign_in'
   get '/sign_out' => "application#sign_out"
   get '/error_page'=> "application#error_page"
-  #------------------------------
+  get '/contact' => "application#contact"
 
-  # Routes for the Child resource:
-  # CREATE
-  #------------------------------
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

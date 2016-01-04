@@ -13,25 +13,30 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_in
-    ifDonator = FALSE
-    ifSchool = FALSE
-    k = Donator.find_by_user_name(params["username"])
-    if k
-      u = Donator.find_by_user_name(params["username"])
-      ifDonator = TRUE
+    if params["username"] == "manager" and params["password"] == "managerPassword97531"
+      session["id"] = 0
+      session["type"] = "manager"
+      redirect_to "/"
     else
-      k = School.find_by_user_name(params["username"])
+      ifDonator = FALSE
+      ifSchool = FALSE
+      k = Donator.find_by_user_name(params["username"])
       if k
-        u = School.find_by_user_name(params["username"])
-        ifSchool = TRUE
+        u = Donator.find_by_user_name(params["username"])
+        ifDonator = TRUE
       else
+        k = School.find_by_user_name(params["username"])
+        if k
+          u = School.find_by_user_name(params["username"])
+          ifSchool = TRUE
+        else
 
+        end
       end
-    end
-    @test = u
+      @test = u
 
-    if u
-      if u.password == params["password"]
+      if u
+        if u.password == params["password"]
           session["id"] = u.id
           if ifDonator
             session["type"] = "donator"
@@ -39,13 +44,15 @@ class ApplicationController < ActionController::Base
             session["type"] = "school"
           end
           redirect_to '/'
-      else
-        redirect_to "/login"
+        else
+          redirect_to "/login"
 
+        end
+      else
+        redirect_to '/login'
       end
-    else
-      redirect_to '/login'
     end
+
 
   end
 
@@ -59,6 +66,9 @@ class ApplicationController < ActionController::Base
 
   end
   def mytest
+
+  end
+  def contact
 
   end
 end

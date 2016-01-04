@@ -1,0 +1,38 @@
+<h1>News</h1>
+
+<p><a href="/new_news">Add a New News</a></p>
+
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Child</th>
+    <th>School</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @news.each do |news| %>
+      <tr>
+        <td><%= news.title %></td>
+        <td><%= news.content %></td>
+        <%if Child.find_by(id:news.child_id ) %>
+            <td><%=Child.find_by(id:news.child_id ).name %></td>
+        <%else%>
+            <td>school news</td>
+        <%end%>
+        <td><%= School.find_by_id(news.school_id).name %></td>
+
+        <td><a href="/news/<%= news.id %>">Show</a>
+        </td>
+        <td><a href="/news/<%= news.id %>/edit">Edit</a></td>
+        <td><a href="/news/<%= news.id %>/destroy">Destroy</a></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+

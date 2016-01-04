@@ -1,24 +1,57 @@
-<h1>New News</h1>
+<%if params[:id]%>
+    <div class = "container">
+      <h1>New news</h1>
+      <b style="color:red"><%=session["errormessage"]%></b>
+      <%session["errormessage"] = nil%>
+      <form action="/create_news/<%=params[:id]%>" role="form" class="form-horizontal">
+        <div class = "form-group">
+          <div class="col-sm-12">
+            <label for="title">title</label><br />
+            <input id="title" name="title" type="text" />
+          </div>
+        </div>
 
-<form action="/create_news">
-  <div>
-    <label for="title">title</label><br />
-    <input id="title" name="title" type="text" />
-  </div>
-  <div>
-    <label for="content">content</label><br />
-    <input id="content" name="content" type="text" />
-  </div>
-  <div>
-    <label for="child_id">child_id</label><br />
-    <input id="child_id" name="child_id" type="text" />
-  </div>
-  <div>
-    <label for="school_id">school_id</label><br />
-    <input id="school_id" name="school_id" type="text" />
-  </div>
-  <div>
-    <input type="submit">
-  </div>
-</form>
+        <div class = "form-group">
+          <div class="col-sm-12">
+            <label for="content">content</label><br />
+            <textarea  name = "content" placeholder="content" style = "width:100%; height: 300px;border-radius: 3px;"></textarea>
+          </div>
+        </div>
+
+        <div class = "form-group">
+          <div class="col-sm-12">
+            <input type="submit">
+          </div>
+        </div>
+      </form>
+    </div>
+<%else%>
+    <div class = "container">
+      <h1>New news</h1>
+      <b style="color:red"><%=session["errormessage"]%></b>
+      <%session["errormessage"] = nil%>
+      <form action="/create_news" role="form" class="form-horizontal">
+        <div class = "form-group">
+          <div class="col-sm-12">
+            <label for="title">title</label><br />
+            <input id="title" name="title" type="text" />
+          </div>
+        </div>
+
+        <div class = "form-group">
+          <div class="col-sm-12">
+            <label for="content">content</label><br />
+            <textarea  name = "content" placeholder="content" style = "width:100%; height: 300px;border-radius: 3px;"></textarea>
+          </div>
+        </div>
+
+        <div class = "form-group">
+          <div class="col-sm-12">
+            <input type="submit">
+          </div>
+        </div>
+      </form>
+    </div>
+<%end%>
+
 

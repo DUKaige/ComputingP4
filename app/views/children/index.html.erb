@@ -1,6 +1,8 @@
 <h1>Children</h1>
 
-<p><a href="/new_child">Add a New Child</a></p>
+<%if session["type"] == "school" or session["type"] == "manager" %>
+    <p><a href="/new_child">Add a New Child</a></p>
+<%end%>
 
 <table>
   <thead>
@@ -22,7 +24,7 @@
 
       <td><a href="/children/<%= child.id %>">Show</a>
         </td>
-      <%if session["type"] == "school" or session["type"] == "manager" %>
+      <%if session["type"] == "manager" %>
         <td><a href="/children/<%= child.id %>/edit">Edit</a></td>
         <td><a href="/children/<%= child.id %>/destroy">Destroy</a></td>
       <%end%>

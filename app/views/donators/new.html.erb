@@ -1,38 +1,56 @@
-<h1>New Donator</h1>
-
-<form action="/create_donator">
-
-  <div>
-    <label for="username">username(user name has to be unique)</label><br />
-    <input id="username" name="username" type="text" />
+<div class = "container">
+  <h1>Sign up as a donator</h1>
+  <b style="color:red"><%=session["errormessage"]%></b>
+    <%session["errormessage"] = nil%>
+  <form action="/create_donator" role="form" class="form-horizontal">
+  <div class = "form-group">
+    <div class="col-sm-12">
+      <label for="username">username(user name has to be unique)</label><br />
+      <input id="username" name="username" type="text" />
+    </div>
   </div>
 
-  <div>
-    <label for="name">your real name or nickname</label><br />
-    <input id="name" name="name" type="text" />
+  <div class = "form-group">
+    <div class="col-sm-12">
+      <label for="name">your real name or nickname</label><br />
+      <input id="name" name="name" type="text" />
+    </div>
   </div>
 
-  <div>
-    <label for="password">password</label><br />
-    <input id="password" name="password" type="password" />
+  <div class = "form-group">
+    <div class="col-sm-12">
+      <label for="password">password</label><br />
+      <input id="password" name="password" type="password" />
+    </div>
   </div>
 
-  <div>
-    <label for="repassword">retype password</label><br />
-    <input id="repassword" name="repassword" type="password" />
+  <div class = "form-group">
+    <div class="col-sm-12">
+      <label for="repassword">retype password</label><br />
+      <input id="repassword" name="repassword" type="password" />    </div>
   </div>
 
 
-  <div>
-    <label for="email">email</label><br />
-    <input id="email" name="email" type="text" />
+  <div class = "form-group">
+    <div class="col-sm-12">
+      <label for="email">email</label><br />
+      <input id="email" name="email" type="text" />    </div>
   </div>
-    <label for="phone_number">phone_number</label><br />
-    <input id="phone_number" name="phone_number" type="text" />
+
+
+  <div class = "form-group">
+    <div class="col-sm-12">
+      <label for="phone_number">phone_number</label><br />
+      <input id="phone_number" name="phone_number" type="text" />
+    </div>
   </div>
-  <div>
-    <input type="submit">
+
+  <div class = "form-group">
+    <div class="col-sm-12">
+      <input type="submit" value = "sign up">
+    </div>
   </div>
+
 </form>
-<%=session["errormessage"]%>
-<%session["errormessage"] = nil%>
+
+</div>

@@ -4,7 +4,7 @@ class CreateNews < ActiveRecord::Migration
       t.string :title
       t.string :content
       t.integer :child_id
-
+      t.integer :school_id
       t.timestamps
     end
   end
